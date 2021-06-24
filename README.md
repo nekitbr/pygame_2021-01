@@ -1,5 +1,5 @@
 Dados sobre aluno:
-nome: José H. Dall' Asta
+nome: José H. Dall' Asta\n
 e-mail: nekitbr3131@gmail.com
 
 Projeto 2021/01:
