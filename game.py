@@ -38,6 +38,12 @@ def escrevendoPlacar(score, vidas):
 def jogo():
     comidaType = comidaID = 0
 
+    # [ini] sound assets
+    pygame.mixer.music.load('assets/sounds/music.mp3')
+    pygame.mixer.music.play(-1) # looping
+    sounds_act = ['yoshi-ha.mp3', 'yoshi-pam.mp3', 'yoshi-wa.mp3', 'yoshi-yap.mp3']
+    sounds_stats = ['yoshi-spit.mp3', 'yoshi-ow.mp3']
+    # [end] sound assets
 
     # [ini] image assets
     fundo = pygame.image.load("assets/images/background.jpg")
@@ -115,14 +121,17 @@ def jogo():
 
             if food[comidaType][comidaID] in food[1]:
                 score += 1
-
+                pygame.mixer.Sound.play(pygame.mixer.Sound('assets/sounds/'+sounds_act[random.randint(0, 3)]))
             elif food[comidaType][comidaID] in food[0]:
                 vidas -= 1
                 if vidas == 0:
                     escrevendoPlacar(score, vidas)
                     pygame.display.update()
+                    pygame.mixer.Sound.play(pygame.mixer.Sound('assets/sounds/'+sounds_stats[1]))
                     dead(score)
                     restart()
+                else:
+                    pygame.mixer.Sound.play(pygame.mixer.Sound('assets/sounds/'+sounds_stats[0]))
 
 
             comidaType = random.randint(0, 1) # pega tipo da comida trash/candy
@@ -145,10 +154,12 @@ def jogo():
 
             if food[comidaType][comidaID] in food[1]:
                 vidas -= 1
+                pygame.mixer.Sound.play(pygame.mixer.Sound('assets/sounds/'+sounds_stats[0]))
                 
             if vidas == 0:
                 escrevendoPlacar(score, vidas)
                 pygame.display.update()
+                pygame.mixer.Sound.play(pygame.mixer.Sound('assets/sounds/'+sounds_stats[1]))
                 dead(score)
                 restart()
 
