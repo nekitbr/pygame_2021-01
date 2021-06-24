@@ -8,3 +8,5 @@ Se o jogador pegar as que não são (eg: fast food, coca) perderá pontos de vid
 O projeto teve como base o código feito pelo professor Marcos Santos.
 
 A princípio eu iria fazer em conjunto com o Vitor, porém o computador dele estava com problemas, então para nao me atrasar fiz um rápido com base no seu código.
+
+***A build do jogo está nas releases!***
