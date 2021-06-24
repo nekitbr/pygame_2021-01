@@ -8,6 +8,9 @@ login('log.txt', 'a')
 pygame.init()  # função para iniciar o pygame
 largura = 800
 altura = 600
+icone = pygame.image.load("assets/images/yoshi_ico.png")
+pygame.display.set_caption("Yoshi dos cria")
+pygame.display.set_icon(icone)
 display = pygame.display.set_mode((largura, altura))
 fps = pygame.time.Clock()
 branco = (255, 255, 255)
