@@ -3,7 +3,7 @@ import pygame
 import random
 import time
 
-
+login('log.txt', 'a')
 
 pygame.init()  # função para iniciar o pygame
 largura = 800
@@ -36,11 +36,16 @@ def escrevendoPlacar(score, vidas):
     display.blit(texto, (0, 0))
     
 def jogo():
+    comidaType = comidaID = 0
+
+
     # [ini] image assets
     fundo = pygame.image.load("assets/images/background.jpg")
     fundo = pygame.transform.scale(fundo, (800, 600))
-    food = 'trash1.png'
-    comida = pygame.image.load('assets/images/'+food)
+    food = [['trash0.png', 'trash1.png', 'trash2.png', 'trash3.png', 'trash4.png', 'trash5.png'], ['fruit0.png', 'fruit1.png', 'fruit2.png', 'fruit3.png', 'fruit4.png', 'fruit5.png']]
+    comidaType = random.randint(0, 1) # pega tipo da comida trash/candy
+    comidaID = random.randint(0, 5) # pega index do tipo, 0 a 5
+    comida = pygame.image.load('assets/images/'+food[comidaType][comidaID])
     comida = pygame.transform.scale(comida, (120, 120))
     yoshi = (pygame.image.load("assets/images/yoshi-still.png"))
     yoshi = pygame.transform.scale(yoshi, (120, 120))
@@ -89,46 +94,48 @@ def jogo():
                 yoshi = (pygame.image.load("assets/images/yoshi-still.png"))
                 yoshi = pygame.transform.scale(yoshi, (120, 120))
 
-        # [fim] bloco de comando para verificar interação do usuário:
-        display.fill(branco)  # função para mudar a cor de fundo da tela
-        display.blit(fundo, (0, 0))  # inserir imagem da tela
+        display.fill(branco)  
+        display.blit(fundo, (0, 0))  
         playerPosicaoX = playerPosicaoX + movimentoX
         if playerPosicaoX < 0:
             playerPosicaoX = 0
         elif playerPosicaoX > 680:
             playerPosicaoX = 680
 
-
         display.blit(yoshi, (playerPosicaoX, playerPosicaoY))
         display.blit(comida, (comidaX, comidaY))
         comidaY += missilVelocidade
 
-        # [ini]colisão com player, reinicia posição
+        # [ini] colisão com player, reinicia posição
         if (comidaY + comidaAltura >= playerPosicaoY) and (((comidaX > playerPosicaoX) and (playerPosicaoX+ironLargura > comidaX)) or ((comidaX+comidaLargura > playerPosicaoX) and (comidaX+comidaLargura < playerPosicaoX+ironLargura))):
             comidaY = -220
             comidaX = random.randrange(0, largura-50) # reseta comida
             if missilVelocidade < 10:
                 missilVelocidade += 0.9
 
-            if food in food[1]:
+            if food[comidaType][comidaID] in food[1]:
                 score += 1
 
-            elif food in food[0]:
+            elif food[comidaType][comidaID] in food[0]:
                 vidas -= 1
                 if vidas == 0:
                     escrevendoPlacar(score, vidas)
                     pygame.display.update()
                     dead(score)
                     restart()
-            comida = pygame.image.load('assets/images/'+food)
+
+
+            comidaType = random.randint(0, 1) # pega tipo da comida trash/candy
+            comidaID = random.randint(0, 5) # pega index do tipo, 0 a 5
+            comida = pygame.image.load('assets/images/'+food[comidaType][comidaID])
             comida = pygame.transform.scale(comida, (120, 120))
-        # [fim]colisão com player, reinicia posição
+        # [fim] colisão com player, reinicia posição
 
 
         escrevendoPlacar(score, vidas)
 
 
-        # [ini]colisão
+        # [ini] colisão:
         if altura > comidaY + comidaAltura/2 and anti_loop == True:  # reseta anti-loop de vidas
             anti_loop = False
 
@@ -136,7 +143,7 @@ def jogo():
             if missilVelocidade < 10:
                 missilVelocidade += 0.9 # aumenta velocidade do obj
 
-            if food in food[1]:
+            if food[comidaType][comidaID] in food[1]:
                 vidas -= 1
                 
             if vidas == 0:
@@ -149,9 +156,12 @@ def jogo():
             comidaY = -220 # reseta pos comidaY
             comidaX = random.randrange(0, largura-50) # reseta pos comidaX
             anti_loop = True # anti loop
-            comida = pygame.image.load('assets/images/'+food) # reseta comida e seu tipo
+
+            comidaType = random.randint(0, 1) # pega tipo da comida trash/candy
+            comidaID = random.randint(0, 5) # pega index do tipo, 0 a 5
+            comida = pygame.image.load('assets/images/'+food[comidaType][comidaID]) # reseta comida e seu tipo
             comida = pygame.transform.scale(comida, (120, 120)) # reseta comida e seu tipo
-        # [fim]colisão:
+        # [fim] colisão:
 
         pygame.display.update()
         fps.tick(60)
