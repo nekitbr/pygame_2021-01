@@ -1,6 +1,6 @@
 Dados sobre aluno:  
 nome: José H. Dall' Asta  
-e-mail: nekitbr3131@gmail.com  
+e-mail: **********  
 
 Projeto 2021/01:
 Este jogo consiste no personagem principal (Yoshi) controlado pelo jogador, a pegar apenas as comidas saudáveis para ganhar pontos;  
